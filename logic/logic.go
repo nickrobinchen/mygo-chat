@@ -2,7 +2,11 @@ package logic
 
 import (
 	"fmt"
+	"mygochat/config"
 	"runtime"
+
+	"github.com/google/uuid"
+	"github.com/sirupsen/logrus"
 )
 
 type Logic struct {

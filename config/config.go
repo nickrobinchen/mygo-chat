@@ -1,22 +1,23 @@
 package config
 
 import (
-	"github.com/spf13/viper"
 	"os"
 	"runtime"
 	"strings"
 	"sync"
+
+	"github.com/spf13/viper"
 )
 
 const (
-	//SuccessReplyCode      = 0
-	//FailReplyCode         = 1
+	SuccessReplyCode = 0
+	FailReplyCode    = 1
 	//SuccessReplyMsg       = "success"
-	//QueueName             = "gochat_queue"
-	//RedisBaseValidTime    = 86400
-	//RedisPrefix           = "gochat_"
-	//RedisRoomPrefix       = "gochat_room_"
-	//RedisRoomOnlinePrefix = "gochat_room_online_count_"
+	QueueName             = "gochat_queue"
+	RedisBaseValidTime    = 86400
+	RedisPrefix           = "gochat_"
+	RedisRoomPrefix       = "gochat_room_"
+	RedisRoomOnlinePrefix = "gochat_room_online_count_"
 	//MsgVersion            = 1
 	OpSingleSend    = 2 // single user
 	OpRoomSend      = 3 // send to room
@@ -32,7 +33,7 @@ var Conf *Config
 type Config struct {
 	Common Common
 	//Connect ConnectConfig
-	//Logic   LogicConfig
+	Logic LogicConfig
 	//Task    TaskConfig
 	Api ApiConfig
 	//Site    SiteConfig
@@ -147,4 +148,16 @@ type ApiBase struct {
 
 type ApiConfig struct {
 	ApiBase ApiBase `mapstructure:"api-base"`
+}
+
+type LogicConfig struct {
+	LogicBase LogicBase `mapstructure:"logic-base"`
+}
+
+type LogicBase struct {
+	ServerId   string `mapstructure:"serverId"`
+	CpuNum     int    `mapstructure:"cpuNum"`
+	RpcAddress string `mapstructure:"rpcAddress"`
+	CertPath   string `mapstructure:"certPath"`
+	KeyPath    string `mapstructure:"keyPath"`
 }
