@@ -1,6 +1,6 @@
 ## Go learning project - MyGOchat
 
-An implementation of https://github.com/LockGit/gochat
+An imitation of https://github.com/LockGit/gochat
 
 Under construction 2024.10.28
 
