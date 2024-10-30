@@ -8,9 +8,11 @@ package main
 import (
 	"flag"
 	"fmt"
+
 	//"mygochat/connect"
 	"mygochat/api"
-	//"mygochat/logic"
+	"mygochat/logic"
+
 	//"mygochat/site"
 	//"mygochat/task"
 	"os"
@@ -21,12 +23,12 @@ import (
 func main() {
 	var module string
 	flag.StringVar(&module, "module", "", "assign run module")
-	module = "api"
+	module = "logic"
 	flag.Parse()
 	fmt.Println(fmt.Sprintf("start run %s module", module))
 	switch module {
-	//case "logic":
-	//	logic.New().Run()
+	case "logic":
+		logic.New().Run()
 	//case "connect_websocket":
 	//	connect.New().Run()
 	//case "connect_tcp":

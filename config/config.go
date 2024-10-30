@@ -10,9 +10,9 @@ import (
 )
 
 const (
-	SuccessReplyCode = 0
-	FailReplyCode    = 1
-	//SuccessReplyMsg       = "success"
+	SuccessReplyCode      = 0
+	FailReplyCode         = 1
+	SuccessReplyMsg       = "success"
 	QueueName             = "gochat_queue"
 	RedisBaseValidTime    = 86400
 	RedisPrefix           = "gochat_"
@@ -31,9 +31,9 @@ var once sync.Once
 var Conf *Config
 
 type Config struct {
-	Common Common
-	//Connect ConnectConfig
-	Logic LogicConfig
+	Common  Common
+	Connect ConnectConfig
+	Logic   LogicConfig
 	//Task    TaskConfig
 	Api ApiConfig
 	//Site    SiteConfig
@@ -98,9 +98,9 @@ func Init() {
 		}
 		Conf = new(Config)
 		viper.Unmarshal(&Conf.Common)
-		//viper.Unmarshal(&Conf.Connect)
+		viper.Unmarshal(&Conf.Connect)
 		//viper.Unmarshal(&Conf.Task)
-		//viper.Unmarshal(&Conf.Logic)
+		viper.Unmarshal(&Conf.Logic)
 		viper.Unmarshal(&Conf.Api)
 		//viper.Unmarshal(&Conf.Site)
 	})
@@ -160,4 +160,53 @@ type LogicBase struct {
 	RpcAddress string `mapstructure:"rpcAddress"`
 	CertPath   string `mapstructure:"certPath"`
 	KeyPath    string `mapstructure:"keyPath"`
+}
+type ConnectBase struct {
+	CertPath string `mapstructure:"certPath"`
+	KeyPath  string `mapstructure:"keyPath"`
+}
+
+type ConnectRpcAddressWebsockts struct {
+	Address string `mapstructure:"address"`
+}
+
+type ConnectRpcAddressTcp struct {
+	Address string `mapstructure:"address"`
+}
+
+type ConnectBucket struct {
+	CpuNum        int    `mapstructure:"cpuNum"`
+	Channel       int    `mapstructure:"channel"`
+	Room          int    `mapstructure:"room"`
+	SrvProto      int    `mapstructure:"svrProto"`
+	RoutineAmount uint64 `mapstructure:"routineAmount"`
+	RoutineSize   int    `mapstructure:"routineSize"`
+}
+
+type ConnectWebsocket struct {
+	ServerId string `mapstructure:"serverId"`
+	Bind     string `mapstructure:"bind"`
+}
+
+// type ConnectTcp struct {
+// 	ServerId      string `mapstructure:"serverId"`
+// 	Bind          string `mapstructure:"bind"`
+// 	SendBuf       int    `mapstructure:"sendbuf"`
+// 	ReceiveBuf    int    `mapstructure:"receivebuf"`
+// 	KeepAlive     bool   `mapstructure:"keepalive"`
+// 	Reader        int    `mapstructure:"reader"`
+// 	ReadBuf       int    `mapstructure:"readBuf"`
+// 	ReadBufSize   int    `mapstructure:"readBufSize"`
+// 	Writer        int    `mapstructure:"writer"`
+// 	WriterBuf     int    `mapstructure:"writerBuf"`
+// 	WriterBufSize int    `mapstructure:"writeBufSize"`
+// }
+
+type ConnectConfig struct {
+	ConnectBase                ConnectBase                `mapstructure:"connect-base"`
+	ConnectRpcAddressWebSockts ConnectRpcAddressWebsockts `mapstructure:"connect-rpcAddress-websockts"`
+	ConnectRpcAddressTcp       ConnectRpcAddressTcp       `mapstructure:"connect-rpcAddress-tcp"`
+	ConnectBucket              ConnectBucket              `mapstructure:"connect-bucket"`
+	ConnectWebsocket           ConnectWebsocket           `mapstructure:"connect-websocket"`
+	//ConnectTcp                 ConnectTcp                 `mapstructure:"connect-tcp"`
 }

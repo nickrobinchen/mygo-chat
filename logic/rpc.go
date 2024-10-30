@@ -307,7 +307,7 @@ func (rpc *RpcLogic) GetRoomInfo(ctx context.Context, args *proto.Send, reply *p
 }
 
 // AuthToken, RoomId -> userId ?
-
+// connect user to room!
 func (rpc *RpcLogic) Connect(ctx context.Context, args *proto.ConnectRequest, reply *proto.ConnectReply) (err error) {
 	if args == nil {
 		logrus.Errorf("logic,connect args empty")
