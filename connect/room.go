@@ -1,7 +1,7 @@
 package connect
 
 import (
-	"gochat/proto"
+	"mygochat/proto"
 	"sync"
 
 	"github.com/pkg/errors"
