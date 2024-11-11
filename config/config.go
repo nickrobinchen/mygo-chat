@@ -18,12 +18,12 @@ const (
 	RedisPrefix           = "gochat_"
 	RedisRoomPrefix       = "gochat_room_"
 	RedisRoomOnlinePrefix = "gochat_room_online_count_"
-	//MsgVersion            = 1
-	OpSingleSend    = 2 // single user
-	OpRoomSend      = 3 // send to room
-	OpRoomCountSend = 4 // get online user count
-	OpRoomInfoSend  = 5 // send info to room
-	//OpBuildTcpConn        = 6 // build tcp conn
+	MsgVersion            = 1
+	OpSingleSend          = 2 // single user
+	OpRoomSend            = 3 // send to room
+	OpRoomCountSend       = 4 // get online user count
+	OpRoomInfoSend        = 5 // send info to room
+	OpBuildTcpConn        = 6 // build tcp conn
 )
 
 var once sync.Once
@@ -34,9 +34,9 @@ type Config struct {
 	Common  Common
 	Connect ConnectConfig
 	Logic   LogicConfig
-	//Task    TaskConfig
-	Api ApiConfig
-	//Site    SiteConfig
+	Task    TaskConfig
+	Api     ApiConfig
+	Site    SiteConfig
 }
 
 func GetMode() string {
@@ -99,10 +99,10 @@ func Init() {
 		Conf = new(Config)
 		viper.Unmarshal(&Conf.Common)
 		viper.Unmarshal(&Conf.Connect)
-		//viper.Unmarshal(&Conf.Task)
+		viper.Unmarshal(&Conf.Task)
 		viper.Unmarshal(&Conf.Logic)
 		viper.Unmarshal(&Conf.Api)
-		//viper.Unmarshal(&Conf.Site)
+		viper.Unmarshal(&Conf.Site)
 	})
 }
 
@@ -209,4 +209,24 @@ type ConnectConfig struct {
 	ConnectBucket              ConnectBucket              `mapstructure:"connect-bucket"`
 	ConnectWebsocket           ConnectWebsocket           `mapstructure:"connect-websocket"`
 	//ConnectTcp                 ConnectTcp                 `mapstructure:"connect-tcp"`
+}
+
+type TaskBase struct {
+	CpuNum        int    `mapstructure:"cpuNum"`
+	RedisAddr     string `mapstructure:"redisAddr"`
+	RedisPassword string `mapstructure:"redisPassword"`
+	RpcAddress    string `mapstructure:"rpcAddress"`
+	PushChan      int    `mapstructure:"pushChan"`
+	PushChanSize  int    `mapstructure:"pushChanSize"`
+}
+
+type TaskConfig struct {
+	TaskBase TaskBase `mapstructure:"task-base"`
+}
+type SiteBase struct {
+	ListenPort int `mapstructure:"listenPort"`
+}
+
+type SiteConfig struct {
+	SiteBase SiteBase `mapstructure:"site-base"`
 }

@@ -12,9 +12,8 @@ import (
 	"mygochat/api"
 	"mygochat/connect"
 	"mygochat/logic"
-
-	//"mygochat/site"
-	//"mygochat/task"
+	"mygochat/site"
+	"mygochat/task"
 	"os"
 	"os/signal"
 	"syscall"
@@ -33,12 +32,12 @@ func main() {
 		connect.New().Run()
 	//case "connect_tcp":
 	//	connect.New().RunTcp()
-	//case "task":
-	//	task.New().Run()
+	case "task":
+		task.New().Run()
 	case "api":
 		api.New().Run()
-	//case "site":
-	//	site.New().Run()
+	case "site":
+		site.New().Run()
 	default:
 		fmt.Println("exiting,module param error!")
 		return
